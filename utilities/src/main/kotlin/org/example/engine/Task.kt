@@ -2,11 +2,11 @@ package org.example.engine
 
 data class Task (
     val id: String = "",
-    val dependencies: MutableList<String> = mutableListOf(),
-    val action: () -> Result<Artifact> = { defaultAction() },
-    val inputs: List<Artifact> = listOf(),
-    val outputs: List<Artifact> = listOf(),
-    val status: TaskStatus = TaskStatus.PENDING
+    var dependencies: MutableList<String> = mutableListOf(),
+    var action: () -> Result<Artifact> = { defaultAction() },
+    var inputs: List<Artifact> = listOf(),
+    var outputs: List<Artifact> = listOf(),
+    var status: TaskStatus = TaskStatus.PENDING
 )
 
 fun defaultAction(): Result<Artifact> {
