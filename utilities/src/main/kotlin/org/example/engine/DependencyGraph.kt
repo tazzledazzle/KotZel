@@ -4,6 +4,9 @@ class DependencyGraph {
     private val adjacencyList: MutableMap<String, MutableList<String>> = mutableMapOf()
     private val tasks: MutableMap<String, Task> = mutableMapOf()
 
+    val size: Int
+        get() = adjacencyList.size
+
     fun addTask(task: Task) {
         tasks[task.id] = task
         adjacencyList.putIfAbsent(task.id, mutableListOf())
@@ -13,5 +16,10 @@ class DependencyGraph {
         }
     }
 
+    fun getTask(id: String): Task? = tasks[id]
+
+    fun getDependents(id: String): List<Task> = adjacencyList[id]?.mapNotNull { tasks[it] } ?: emptyList()
+
+    fun getAllTasks(): Collection<Task> = tasks.values
 
 }
