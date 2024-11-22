@@ -7,6 +7,7 @@
 plugins {
     // Support convention plugins written in Groovy. Convention plugins are build scripts in 'src/main' that automatically become available as plugins in the main build.
     id 'groovy-gradle-plugin'
+    id "de.undercouch.download" version "5.3.0"
 }
 
 repositories {
@@ -17,6 +18,18 @@ repositories {
 dependencies {
     implementation libs.kotlin.gradle.plugin
 }
+
+task downloadNewrelic(type: Download) {
+    mkdir 'newrelic'
+    src 'https://download.newrelic.com/newrelic/java-agent/newrelic-agent/current/newrelic-java.zip'
+    dest file('newrelic')
+}
+
+task unzipNewrelic(type: Copy) {
+    from zipTree(file('newrelic/newrelic-java.zip'))
+    into rootDir
+}
+
 
 repositories {
     maven {

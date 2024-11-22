@@ -37,3 +37,8 @@ java {
         languageVersion = JavaLanguageVersion.of(17)
     }
 }
+//
+//newrelic {
+//    new_relic = "f51bcdcd793dd98db61e527f3dd41f14FFFFNRAL"
+//    user = "NRAK-OK85BV32I49RUARI9Z0Z74OI9CI"
+//}
