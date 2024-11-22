@@ -6,7 +6,7 @@ plugins {
 repositories {
     maven {
         name = "GitHubPackages"
-        url = "https://maven.pkg.github.com/tazzledazzle/kotzel-core"
+        url = "https://maven.pkg.github.com/tazzledazzle/kotzel"
         credentials {
             username = System.getenv("GITHUB_ACTOR")
             password = System.getenv("GITHUB_TOKEN")

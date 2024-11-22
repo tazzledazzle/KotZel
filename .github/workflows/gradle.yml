@@ -36,7 +36,7 @@ jobs:
     - name: Configure and Setup GW
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
       with:
-        gradle-version: '8.9'
+        gradle-version: '8.10.2'
 
 
     # Cache Gradle dependencies
@@ -73,7 +73,12 @@ jobs:
         GITHUB_ACTOR: ${{ github.actor }}
       run: ./gradlew publish --scan
 
+    # todo: grails setup
+    - name: Metrics Collection
+      run: grails -noreloading -javaagent:build-logic/newrelic/newrelic.jar run-app
 
+    - name: New Relic infrastructure configuration
+      run: curl -Ls https://download.newrelic.com/install/newrelic-cli/scripts/install.sh |  bash && sudo NEW_RELIC_API_KEY=${{ secrets.NEW_RELIC_API_KEY }} NEW_RELIC_ACCOUNT_ID=${{secrets.NEW_RELIC_ACCOUNT_ID}} /usr/local/bin/newrelic install -n logs-integration -y
   dependency-submission:
 
     runs-on: ubuntu-latest
@@ -93,7 +98,7 @@ jobs:
     - name: Generate and submit dependency graph
       uses: gradle/actions/dependency-submission@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
       with:
-        gradle-version: 8.11.0
+        gradle-version: 8.10.2
         # Exclude all dependencies that originate solely in the 'buildSrc' project
         # dependency-graph-exclude-projets: ':buildSrc'
         # Exclude dependencies that are only resolved in test classpaths
