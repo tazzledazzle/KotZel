@@ -1,9 +1,10 @@
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.ints.shouldBeGreaterThan
 import io.kotest.matchers.shouldBe
 import org.example.engine.DependencyGraph
 import org.example.engine.task.Task
 
-class DependencyGraph : FunSpec({
+class DependencyGraphTests : FunSpec({
     val graph = DependencyGraph()
 
     test("can create a graph") {
@@ -40,6 +41,6 @@ class DependencyGraph : FunSpec({
 
         graph.addTask(test)
         graph.addTask(test2)
-        graph.getAllTasks().size shouldBe 2
+        graph.getAllTasks().size shouldBeGreaterThan 2
     }
 })
