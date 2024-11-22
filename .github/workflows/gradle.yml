@@ -93,3 +93,7 @@ jobs:
       uses: gradle/actions/dependency-submission@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
       with:
         gradle-version: 8.9
+        # Exclude all dependencies that originate solely in the 'buildSrc' project
+        # dependency-graph-exclude-projets: ':buildSrc'
+        # Exclude dependencies that are only resolved in test classpaths
+        # dependency-graph-exclude-configurations: '.*[Tt]est(Compile|Runtime)Classpath'
