@@ -17,3 +17,15 @@ repositories {
 dependencies {
     implementation libs.kotlin.gradle.plugin
 }
+
+repositories {
+    maven {
+        name = "GitHubPackages"
+        url = "https://maven.pkg.github.com/tazzledazzle/kotzel-build"
+        credentials {
+            username = System.getenv("GITHUB_ACTOR")
+            password = System.getenv("GITHUB_TOKEN")
+        }
+    }
+}
+
