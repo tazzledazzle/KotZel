@@ -1,4 +1,6 @@
-package org.example.engine
+package org.example.engine.task
+
+import org.example.engine.Artifact
 
 data class Task (
     val id: String = "",

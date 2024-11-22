@@ -1,5 +1,7 @@
 package org.example.engine
 
+import org.example.engine.task.Task
+
 class DependencyGraph {
     private val adjacencyList: MutableMap<String, MutableList<String>> = mutableMapOf()
     private val tasks: MutableMap<String, Task> = mutableMapOf()

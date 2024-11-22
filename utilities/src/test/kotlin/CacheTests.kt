@@ -15,4 +15,9 @@ class CacheTests: FunSpec({
         val cache = RemoteCache("//endpoint")
         cache::class.java shouldBe RemoteCache::class.java
     }
+
+    test("cache key generation") {
+        val cache = LocalCache(Path("."))
+
+    }
 })

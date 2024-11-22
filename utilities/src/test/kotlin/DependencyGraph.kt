@@ -1,7 +1,7 @@
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import org.example.engine.DependencyGraph
-import org.example.engine.Task
+import org.example.engine.task.Task
 
 class DependencyGraph : FunSpec({
     val graph = DependencyGraph()

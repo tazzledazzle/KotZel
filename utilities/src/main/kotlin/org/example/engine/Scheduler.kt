@@ -1,9 +1,11 @@
 package org.example.engine
 
+import org.example.engine.task.Task
 import java.util.LinkedList
 import java.util.Queue
 
 class Scheduler(private val graph: DependencyGraph) {
+    //todo: number of ordered tasks matches tasks in graph or cycle exists
     fun schedule(): List<Task> {
         val inDegree = mutableMapOf<String, Int>()
         graph.getAllTasks().forEach { task ->

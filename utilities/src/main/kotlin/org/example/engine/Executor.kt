@@ -2,6 +2,8 @@ package org.example.engine
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Semaphore
+import org.example.engine.task.Task
+import org.example.engine.task.TaskStatus
 
 class Executor(
     private val graph: DependencyGraph,
@@ -55,15 +57,19 @@ class Executor(
 
         while ((attempt < maxRetries) && !success)  {
             try {
+                val startTime = System.currentTimeMillis()
                 val result = withContext(Dispatchers.IO) { task.action() }
+                val endTime = System.currentTimeMillis()
+                Metrics.taskExecutionTime[task.id] = endTime - startTime
                 when  {
                     result.isSuccess -> {
                         cache.store(cacheKey, result.getOrElse { Artifact(path = task.id) }) //todo: passing the id here seems wrong, but I go fast
                         task.status = TaskStatus.COMPLETED
+                        Metrics.completedTasks.incrementAndGet()
                         success = true
                     }
                     result.isFailure -> {
-
+                        Metrics.failedTasks.incrementAndGet()
                         throw Exception("badd")
                     }
                 }
@@ -81,6 +87,10 @@ class Executor(
     }
 
     private fun generateCacheKey(task: Task): String {
-        TODO("Not yet implemented")
+        val inputHashes = task.inputs.joinToString("") { it.hash }
+        val dependenciesHashes = task.dependencies.mapNotNull { depId ->
+            graph.getTask(depId)?.outputs?.joinToString("") { it.hash }
+        }.joinToString("")
+        return "${task.id}:${inputHashes}:${dependenciesHashes}"
     }
 }
