@@ -3,6 +3,10 @@ plugins {
     id 'maven-publish'
 }
 
+dependencies {
+    implementation 'com.newrelic.telemetry:telemetry:0.8.0' // Update to the latest version
+}
+
 repositories {
     maven {
         name = "GitHubPackages"
